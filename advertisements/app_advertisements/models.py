@@ -26,6 +26,20 @@ class Advertisement(models.Model):
 
     def __str__(self):
         return f'Advertisement(id={self.id}, title={self.title}, price={self.price})'
+    
+    @admin.display(description='дата обновления')
+    def update_date(self):
+        if self.updated_date.date() == timezone.now().date():
+            updated_time = self.updated_date.time().strftime('%H:%M:%S')
+            return format_html(
+                '<span style=color:green; font-weight: bolt>Сегодня в {}</span>',
+                updated_time
+            )
+        else:
+            return self.updated_date.strftime('%D.%M.%Y at %H:%M:%S')
+
+    def __str__(self):
+        return f'Advertisement(id={self.id}, title={self.title}, price={self.price})'
 
     class Meta:
         db_table = 'advetisements'
