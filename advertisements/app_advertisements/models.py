@@ -1,5 +1,3 @@
-import datetime
-
 from django.db import models
 from django.contrib import admin
 from django.utils import timezone
@@ -16,7 +14,7 @@ class Advertisement(models.Model):
     created_date = models.DateTimeField(auto_now_add = True)
     updated_date = models.DateTimeField(auto_now = True)
     user = models.ForeignKey(User, verbose_name = 'пользователь', on_delete = models.CASCADE)
-    image = models.ImageField('изображение', upload_to='advertisements/')
+    image = models.ImageField('изображение', upload_to='advertisements/', blank=True)
 
     @admin.display(description='дата создания')
     def create_date(self):
